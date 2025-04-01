@@ -61,7 +61,7 @@ defaultContentLanguageInSubdir = true
   logoTitle = "Conanwang" # shown on top-left, default: title
   siteLogoImage = "images/WechatIMG1.jpg"     # shown besides logoTitle
   # headerTitle = "Den"                   # default: title
-  headerImage = "images/background.jpg"
+  headerImage = "images/globe.svg"
   showAuthorCard = true # Whether to show author information below the article
 
   showMenuLanguages = true
