@@ -1,7 +1,7 @@
 # ------------------------------------- #
 # ---- General Settings --------------- #
 # ------------------------------------- #
-baseURL = "https://example.com"
+baseURL = "https://conanwang.org/"
 title = "真理与自由"
 theme = "hugo-theme-den"
 #enableRobotsTXT = true       # generate robots.txt
