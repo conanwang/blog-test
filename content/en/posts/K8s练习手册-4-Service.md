@@ -23,6 +23,8 @@ authors:
 我们先来看看 `Service` 默认使用的 `ClusterIP` 类型，首先做一些准备工作，在之前的 `hellok8s:v2` 版本上加上返回当前服务所在的 `hostname` 功能，升级到 `v3` 版本。
 
 ```go
+copy
+const copyMe = true
 package main
 
 import (
