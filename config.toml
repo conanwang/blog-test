@@ -56,7 +56,7 @@ defaultContentLanguageInSubdir = true
   rssFullContent = true      # set true to use full content instead of summary
 
   # site info (optional)
-  keywords = ["Hugo", "theme","den"]
+  keywords = ["Hugo", "theme","den", "conanwang"]
   description = "桃李春风一杯酒，江湖夜雨十年灯"
   logoTitle = "Conanwang" # shown on top-left, default: title
   siteLogoImage = "images/globe.svg"     # shown besides logoTitle
