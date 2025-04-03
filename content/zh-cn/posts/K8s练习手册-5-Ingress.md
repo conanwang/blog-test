@@ -9,25 +9,33 @@ authors:
 - "conanwang"
 ---
 
+# Ingress[](https://k8s-tutorials.pages.dev/ingress.html#ingress)
+
 [Ingress](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#ingress-v1beta1-networking-k8s-io) 公开从集群外部到集群内[服务](https://kubernetes.io/docs/concepts/services-networking/service/)的 HTTP 和 HTTPS 路由。 流量路由由 Ingress 资源上定义的规则控制。Ingress 可为 Service 提供外部可访问的 URL、负载均衡流量、 SSL/TLS，以及基于名称的虚拟托管。你必须拥有一个 [Ingress 控制器](https://kubernetes.io/zh-cn/docs/concepts/services-networking/ingress-controllers) 才能满足 Ingress 的要求。 仅创建 Ingress 资源本身没有任何效果。 [Ingress 控制器](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers) 通常负责通过负载均衡器来实现 Ingress，例如 `minikube` 默认使用的是 [nginx-ingress](https://minikube.sigs.k8s.io/docs/tutorials/nginx_tcp_udp_ingress/)，目前 `minikube` 也支持 [Kong-Ingress](https://minikube.sigs.k8s.io/docs/handbook/addons/kong-ingress/)。
 
 Ingress 可以“简单理解”为服务的网关 Gateway，它是所有流量的入口，经过配置的路由规则，将流量重定向到后端的服务。
 
 在 `minikube` 中，可以通过下面命令开启 Ingress-Controller 的功能。默认使用的是 [nginx-ingress](https://minikube.sigs.k8s.io/docs/tutorials/nginx_tcp_udp_ingress/)。
 
-```shell
+shell
+
+```bash
 minikube addons enable ingress
 ```
 
 接着删除之前创建的所有 `pod`, `deployment`, `service` 资源。
 
-```shell
+shell
+
+```bash
 kubectl delete deployment,service --all
 ```
 
 接着根据之前的教程，创建 `hellok8s:v3` 和 `nginx` 的`deployment`与 `service` 资源。Service 的 type 为 ClusterIP 即可。
 
 `hellok8s:v3` 的端口映射为 `3000:3000`，`nginx` 的端口映射为 `4000:80`，这里后续写 Ingress Route 规则时会用到。
+
+yaml
 
 ```yaml
 apiVersion: v1
@@ -59,9 +67,11 @@ spec:
         app: hellok8s
     spec:
       containers:
-        - image: guangzhengli/hellok8s:v3yaml
+        - image: guangzhengli/hellok8s:v3
           name: hellok8s-container
 ```
+
+yaml
 
 ```yaml
 apiVersion: v1
@@ -97,7 +107,7 @@ spec:
         name: nginx-container
 ```
 
-
+shell
 
 ```bash
 kubectl apply -f hellok8s.yaml                 
@@ -126,7 +136,7 @@ kubectl get service
 
 匹配前缀为 `/hello` 的路由规则，重定向到 `hellok8s:v3` 服务，匹配前缀为 `/` 的跟路径重定向到 `nginx`。
 
-
+yaml
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -157,9 +167,9 @@ spec:
                   number: 4000
 ```
 
+shell
 
-
-```bash
+```
 kubectl apply -f ingress.yaml
 # ingress.extensions/hello-ingress created
 
@@ -177,7 +187,7 @@ curl http://192.168.59.100/
 
 这里和service一样，如果本地使用 Docker Desktop（minikube start --driver=docker）的话，那你大概率无法通过minikube ip获取到的ip地址来请求，你可以先通过`minikube service list`来查看服务列表，然后通过`minikube service ingress-nginx-controller -n ingress-nginx --url`来公开服务，然后通过`curl`或者浏览器来访问。
 
-
+shell
 
 ```bash
 minikube service list
