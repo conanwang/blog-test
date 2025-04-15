@@ -1,5 +1,5 @@
 ---
-title: "k8s练习手册-8-secret"
+title: "k8s练习手册-9-Helm"
 date: 2025-04-15T18:27:00+08:00
 lastmod: 2025-04-15T18:27:00+08:00
 draft: false
